@@ -1,5 +1,6 @@
+from multiprocessing.heap import reduce_arena
 from django.shortcuts import render
-from .models import Quiz, Question, AnswerAnggota, User, Answer, Result
+from .models import Quiz, Question, AnswerAnggota, User, Answer, Result, Sesi
 from django.views.generic import ListView
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login, logout
@@ -7,26 +8,42 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils import timezone
-
+from datetime import timedelta
+from django.shortcuts import redirect
 
 # Create your views here.
 @login_required
 def QuizListView(request):
 	u = User.objects.get(username=f"{request.user.username}")
-	quiz = Quiz.objects.all()
-	k = {}
-	for q in quiz:
+	if request.method == "POST":
+		pk = request.POST["startbutton"]
 		try:
-			a = Result.objects.get(quiz=q, team=u.team)
-			k[q] = True
+			q = Sesi.objects.get(quiz=Quiz.objects.get(pk=pk), team=u.team)
+			return redirect('quiz', pk=pk, soal=0)
 		except:
-			k[q] = False
-	return render(request, 'quizes/main.html', {'object_list': quiz, 'u': u, 'k': k})
+			sesi = Sesi()
+			sesi.quiz = Quiz.objects.get(pk=pk)
+			sesi.start_date = timezone.now()
+			sesi.end_date = sesi.start_date + timedelta(minutes=sesi.quiz.time)
+			sesi.team = u.team
+			sesi.save()
+			return redirect('quiz', pk=pk, soal=0)
+	else:
+		quiz = Quiz.objects.all()
+		k = {}
+		for q in quiz:
+			try:
+				a = Result.objects.get(quiz=q, team=u.team)
+				k[q] = True
+			except:
+				k[q] = False
+		return render(request, 'quizes/main.html', {'object_list': quiz, 'u': u, 'k': k})
 
-def check_time(pk):
+def check_time(pk, u):
 	nw = timezone.now()
-	q = Quiz.objects.get(pk=pk)
+	q = Sesi.objects.get(quiz=Quiz.objects.get(pk=pk), team=u.team)
 
+		
 	if q.start_date <= nw <= q.end_date:
 		return True
 	else:
@@ -44,7 +61,10 @@ def check_quiz(pk, user):
 def quiz_view(request, pk, soal):
 	u = User.objects.get(username=f"{request.user.username}")
 	if check_quiz(pk, u) == False:
-		if check_time(pk) == True:
+		nw = timezone.now()
+		q = Sesi.objects.get(quiz=Quiz.objects.get(pk=pk), team=u.team)
+		if check_time(pk, u) == True:
+			sesi = Sesi.objects.get(quiz=Quiz.objects.get(pk=pk), team=u.team)
 			quiz = Quiz.objects.get(pk=pk)
 			q = quiz.get_questions()
 			questions = q[int(soal)]
@@ -216,9 +236,13 @@ def quiz_view(request, pk, soal):
 				# 	b = None
 				ans = questions.get_answer()
 				ans = list(ans)
-				return render(request, 'quizes/quiz.html', {'obj': quiz, 'bis': bis, 'pk': int(soal) + 1,'soal':questions, 'a':a, 'ans':ans, 'pksoal':pk, 'jumsol': len(q)})
+				return render(request, 'quizes/quiz.html', {'obj': quiz, 'bis': bis, 'pk': int(soal) + 1,'soal':questions, 'a':a, 'ans':ans, 'pksoal':pk, 'jumsol': len(q), 'sesi': sesi})
+		
 		else:
-			return HttpResponseRedirect(reverse("index"))
+			if nw > q.end_date:
+				return redirect("selesai",pk=pk)
+			else:
+				return HttpResponseRedirect(reverse("index"))
 	else:
 		return HttpResponseRedirect(reverse("index"))
 

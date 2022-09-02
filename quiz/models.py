@@ -43,6 +43,17 @@ class Quiz(models.Model):
 	def get_questions(self):
 		return self.question_set.all()[:self.number_of_questions]
 
+class Sesi(models.Model):
+	start_date = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+	end_date = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+	quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+	team = models.ForeignKey(
+	    Team, on_delete=models.CASCADE, blank=True, null=True)
+	time = models.IntegerField(blank=True, null=True)
+	
+	def __str__(self):
+		return f"{self.team} | {self.quiz}: {self.start_date} - {self.end_date}"
+
 class Question(models.Model):
 	otp = models.CharField(max_length=7, default=MakeOTP)
 	text = models.TextField()

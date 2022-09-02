@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Result, Quiz, Question, Answer, Team, AnswerAnggota, User
+from .models import Result, Quiz, Question, Answer, Team, AnswerAnggota, User, Sesi
 
 # Register your models here.
 admin.site.register(Result)
@@ -12,6 +12,7 @@ class QuestionAdmin(admin.ModelAdmin):
 	inlines = [AnswerInline]
 
 admin.site.register(Question, QuestionAdmin)
+admin.site.register(Sesi)
 admin.site.register(Answer)
 admin.site.register(User)
 admin.site.register(AnswerAnggota)

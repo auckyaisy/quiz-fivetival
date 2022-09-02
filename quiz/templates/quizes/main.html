@@ -34,14 +34,18 @@
 			</div>
 			<div class="modal-body">
 				Banyak pertanyaan: {{key.number_of_questions}}<br>
-				Waktu: {{key.start_date}} - {{key.end_date}} 
+				Waktu: {{key.time}} Menit
 				<br><br>
 			{% if value == False %}
 				<strong>Apakah anda yakin ingin memulai quiz?</strong>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-				<button type="button" class="btn btn-primary" onclick="window.location.href='quiz/{{key.pk}}/0';">Ya, mulai</button>
+					<form action="" method="POST" class='form'>
+						{% csrf_token %}
+						<input type="number" id="quantity" name="startbutton" value="{{key.pk}}" hidden>
+				<button type="button" class="btn btn-primary"  onclick='this.form.submit();'>Ya, mulai</button>
+					</form>
 			</div>
 
 			{% else %}
@@ -90,8 +94,11 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-				<button type="button" class="btn btn-primary"
-					onclick="window.location.href='quiz/{{key.pk}}/0';">Ya, mulai</button>
+									<form action="" method="POST" class='form'>
+										{% csrf_token %}
+										<input type="number" id="quantity" name="startbutton" value="{{key.pk}}" hidden>
+										<button type="button" class="btn btn-primary" onclick='this.form.submit();'>Ya, mulai</button>
+									</form>
 			</div>
 
 			{% else %}
@@ -139,8 +146,11 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-				<button type="button" class="btn btn-primary"
-					onclick="window.location.href='quiz/{{key.pk}}/0';">Ya, mulai</button>
+									<form action="" method="POST" class='form'>
+										{% csrf_token %}
+										<input type="number" id="quantity" name="startbutton" value="{{key.pk}}" hidden>
+										<button type="button" class="btn btn-primary" onclick='this.form.submit();'>Ya, mulai</button>
+									</form>
 			</div>
 
 			{% else %}
