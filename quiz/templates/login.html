@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Fivetival - Login</title>
+	<link rel="stylesheet" type="text/css" href="{% static "login/css/style.css"%}">
+	<link rel="icon" href="{% static "images/logo-fivetival-bg-transp.ico" %}" type="image/icon" sizes="16x16">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<div class="container">
+		<div class="login-content">
+			<form action="/quiz/login" method="post">
+				{% csrf_token %}
+				<img src="{% static "images/logo-fivetival-fix.png"%}">
+				<h2 class="title">
+					{% if message %}
+						<span style="color:#d9d9d9;">{{ message }}</span>
+					{% else %}
+						<!-- sinau -->
+					{% endif %}
+				</h2>
+           		<div class="input-div one">
+           		   <div class="i">
+           		   		<i class="fas fa-user"></i>
+           		   </div>
+           		   <div class="div">
+           		   		<h5>Nomor Peserta</h5>
+           		   		<input name="username" type="text" class="input" required oninvalid="this.setCustomValidity('Masukkan nomor peserta!')" oninput="setCustomValidity('')">
+           		   </div>
+           		</div>
+           		<div class="input-div pass">
+           		   <div class="i">
+           		    	<i class="fas fa-lock"></i>
+           		   </div>
+           		   <div class="div">
+           		    	<h5>Password</h5>
+           		    	<input name="password" type="password" class="input" required oninvalid="this.setCustomValidity('Masukkan password!')" oninput="setCustomValidity('')">
+            	   </div>
+            	</div>
+            	<input type="submit" class="btn" value="masuk">
+            </form>
+        </div>
+	</div>
+	<div id="loader">
+		<img src="{% static "images/logo-fivetival-bg-transp.png"%}" alt="">
+	</div>
+	<script type="text/javascript" src="{% static "login/js/main.js"%}"></script>
+		<script>
+				var loader = document.getElementById("loader");
+
+    window.addEventListener("load",function(){
+					setTimeout(function () {
+						loader.style.opacity = "0";
+						loader.style.visibility = "hidden";
+					}, 1500);
+    				})
+		</script>
+</body>
+</html>

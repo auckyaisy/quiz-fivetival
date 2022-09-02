@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<form action="/data" method="POST" class='form'>
+		{% csrf_token %}
+	<div class="container">
+		<div class="left-container">
+			<div class="child-left-container">
+
+<div class="nomor-soal">
+1
+</div>
+<div class="soal">
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet molestie odio, vitae gravida risus. Pellentesque
+sollicitudin rhoncus metus, sit amet tincidunt diam. In eu eleifend leo, ut tincidunt odio. Fusce velit leo, blandit id
+ligula in, convallis aliquam diam. Donec ultrices ultricies pellentesque. Maecenas vitae venenatis purus, nec tempus
+ligula. Suspendisse eu dolor non eros accumsan tincidunt ac ornare ex. Maecenas tincidunt venenatis interdum. Duis
+commodo posuere lacus, vitae fermentum nisl condimentum et. Suspendisse ac auctor tellus. Suspendisse tincidunt orci
+enim, euismod consectetur risus egestas ac. In sollicitudin a felis vel luctus. Donec a felis rhoncus, posuere ligula
+quis, ornare tellus.
+<br><br>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet molestie odio, vitae gravida risus. Pellentesque
+sollicitudin rhoncus metus, sit amet tincidunt diam. In eu eleifend leo, ut tincidunt odio. Fusce velit leo, blandit id
+ligula in, convallis aliquam diam. Donec ultrices ultricies pellentesque. Maecenas vitae venenatis purus, nec tempus
+ligula. Suspendisse eu dolor non eros accumsan tincidunt ac ornare ex. Maecenas tincidunt venenatis interdum. Duis
+commodo posuere lacus, vitae fermentum nisl condimentum et. Suspendisse ac auctor tellus. Suspendisse tincidunt orci
+enim, euismod consectetur risus egestas ac. In sollicitudin a felis vel luctus. Donec a felis rhoncus, posuere ligula
+quis, ornare tellus.
+
+</div>
+<div class="jawaban">
+			<ul class='options'>
+<li class='option'>
+	<input class='option-input' id='option-1' name='sublomba' type='radio' value="kuda" />
+	<label class='option-label' for='option-1'>Mantap Jiwa</label>
+</li>
+<li class='option'>
+	<input class='option-input' id='option-2' name='sublomba' type='radio' value="sapi" />
+	<label class='option-label' for='option-2'>Mantap Jiwa</label>
+</li>
+<li class='option'>
+	<input class='option-input' id='option-3' name='sublomba' type='radio' value="lumpia" />
+	<label class='option-label' for='option-3'>lumpia</label>
+</li>
+<li class='option'>
+	<input class='option-input' id='option-{{key}}' name='sublomba' type='radio' value="kodok" />
+	<label class='option-label' for='option-{{key}}'>Mantap Jiwa</label>
+</li>
+	<!-- <button>a</button>
+	<button>a</button>
+	<button>a</button>
+	<button>a</button> -->
+			</ul>
+</div>
+			</div>
+		</div>
+		<div class="right-container">
+		<div class="child-right-container">
+<div class="judul">
+	<img src="{% static "images/logo-fivetival-bg-transp.png" %}" alt="">
+	<div>
+		<div>English Quiz</div>
+		<div><strong>Fivetival 2022</strong></div>
+	</div>
+</div>
+<div class="multi-right-container">
+	<div class="waktu-container">
+<div class="text-waktu">Sisa Waktu</div>
+<div class="waktu">00:10:54</div>
+	</div>
+	<div class="list-soal">
+
+<div class="text-soal">Nomor Soal</div>
+<div class="kolom-list-soal">
+	<div class="baris-list-soal">
+		<div class="kotak-list-soal"><span>1</span></div>
+		<div class="kotak-list-soal"><span>2</span></div>
+		<div class="kotak-list-soal"><span>3</span></div>
+		<div class="kotak-list-soal"><span>4</span></div>
+	</div>
+	<div class="baris-list-soal">
+		<div class="kotak-list-soal"><span>1</span></div>
+		<div class="kotak-list-soal"><span>2</span></div>
+		<div class="kotak-list-soal">
+			<span>3</span>
+		</div>
+		<div class="kotak-list-soal"><span>4</span></div>
+	</div>
+</div>
+	</div>
+</div>
+<div class="cta-button">
+	<div class="button">Kembali</div>
+	<div class="button">Lanjut</div>
+</div>
+		</div>
+	</div>
+	</div>
+	</form>
+</body>
+
+<style>
+	@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+	.cta-button > .button:hover{
+		cursor: pointer;
+		background-color: #ECFFEC;
+	}
+	.cta-button > .button {
+		padding: 5% 12% 5% 12%;
+		background-color: #C8E2C8;
+		font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+color: black;
+font-size: 1.2vw;
+border-radius: 9px;
+	}
+	.cta-button{
+		display: flex;
+		gap: 15px;
+	}
+	.redflag{
+		box-shadow:inset 0px 0px 0px 5px #BD1D1D;
+	}
+	.kotak-list-soal:hover{
+		background-color: #C8E2C8;
+		cursor: pointer;
+
+	}
+	.kotak-list-soal{
+		background-color: #95AD95;
+		border-radius: 9px;
+		text-align: center;
+		width: 3vw;
+		height: 3vw;
+		 text-align: center;
+		   display: table;
+
+	}
+	.kotak-list-soal > span {
+		font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-size: 1.2vw;
+color: black;
+  display: table-cell;
+  vertical-align: middle;
+	}
+	.baris-list-soal{
+		gap: 10px;
+		display: flex;
+		flex-direction: row;
+	}
+	.kolom-list-soal{
+		gap: 10px;
+		display: flex;
+flex-direction: column;
+	}
+	.text-soal{
+		font-size: 1.5rem;
+		margin-bottom: 16px;
+	}
+	.list-soal{
+		background-color: #142414;
+		padding: 7% 7% 13%;
+		border-radius: 0 0 0 20px;
+	}
+	.waktu {
+		font-weight: 700;
+font-size: 3.5vw;
+	}
+	.text-waktu {
+		margin-left:5px;
+		font-size: 1.5rem;
+	}
+	.waktu-container{
+		border-radius: 20px 0 0 0;
+		display: flex;
+		flex-direction: column;
+		padding: 7% 7% 5%;
+		background-color: #1A311B;
+	}
+	.judul{
+		    margin-left: 10px;
+		display: flex;
+		    align-items: center;
+	}
+	.judul > img {
+		width: 6vw;
+	}
+	.child-right-container{
+					display: flex;
+		    flex-direction: column;
+		    gap: 10px;
+		    margin: 5% 0% 5% 5%;	
+	}
+
+	.right-container{
+		color: white;
+border-radius: 26px 0 0 26px;
+		background-color: #1F3F20;
+		flex: 20%;
+		margin-left: 10px;
+	}
+		.nomor-soal{
+		text-align: end;
+		font-style: normal;
+font-weight: 600;
+font-size: 48.1223px;
+	}
+	.options {
+		display: flex;
+		gap: 10px;
+		flex-direction: column;
+    padding-inline-start: 0px;
+
+	}
+	.jawaban > button:active{
+		background-color: #02ff02;
+	}
+	.jawaban > button:hover{
+cursor: pointer;
+
+		background-color: #e0e0e0;
+	}
+	input[type=radio] {
+    display: none;
+  }
+  input[type=radio] + label {
+    padding: 20px;
+		border-radius: 16px;
+	display: block;
+    /* border-radius: 40px; */
+    /* border: 1px solid #ddd; */
+    background-color: white;
+ 
+  }
+ input[type=radio] + label:hover {
+    background-color: #EBFFE8;
+		cursor: pointer;
+
+  }
+  input[type=radio]:checked + label {
+    background-color: #95AD95;
+  }
+  .jawaban button {
+	  		text-align: center;
+		border-radius: 16px;
+		padding: 2%;
+		background-color: white;
+		list-style-type:none;
+  }
+	.option {
+		  /* display: inline-block; */
+
+		text-align: center;
+		/* padding: 2%; */
+		/* background-color: white; */
+		list-style-type:none;
+	}
+	.soal{
+		padding: 2%;
+
+		border-radius: 16px;
+		background-color: white;
+	}
+	.child-left-container{
+			display: flex;
+		    flex-direction: column;
+		    gap: 10px;
+		    margin: 2% 3% 3% 3%;	
+	}
+	.left-container {
+
+		border-radius: 0 26px 26px 0 ;
+		    margin-right: 10px;
+		background: #C8E2C8;
+		flex: 80%;
+	}
+	.container {
+		display: flex;
+		  flex-wrap: nowrap;
+		padding-top: 5%;
+		padding-bottom: 5%;
+	}
+	body{
+		font-family: 'Inter';
+		margin: 0%;
+		background: #95AD95;
+	}
+</style>
+
+</html>

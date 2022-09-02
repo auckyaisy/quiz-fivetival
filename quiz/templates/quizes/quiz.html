@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body>
+	<form action="" method="POST" class='form'>
+		{% csrf_token %}
+		<input type="text" id="qotp" name="qotp" value="{{soal.otp}}" disabled hidden>
+		<div class="container">
+			<div class="left-container">
+				<div class="child-left-container">
+					<div class="nomor-soal">
+						{{ pk }}
+					</div>
+					<div class="waktu-mobile">
+					<span class="hours"></span><span class="minutes"></span><span class="seconds"></span>
+					</div>
+					<div class="soal" id="soal">
+						{% if soal.song %}
+						<iframe
+   frameborder="0"
+   width="500"
+   height="100"
+   src="{{soal.song}}">
+</iframe><br>
+						{% endif %}
+						{{ soal.text }}
+					</div>
+					<input type="text" id="qotp" name="qotp" value="{{soal.otp}}" readonly hidden>
+					<div class="jawaban">
+						<ul class='options'>
+							{% if soal.tipe == 'PG' %}
+							{% for as in ans %}
+							<li class='option'>
+								<input class='option-input' id='{{ as.text }}'
+									name='jawaban' type='radio' value="{{ as.otp }}" onchange='this.form.submit();'									/>
+
+								<label class='option-label c{{ as.otp }}' for='{{ as.text }}'>{{as.text}}</label>
+							</li>
+							{% endfor %}
+							{% elif soal.tipe == 'ES' %}
+							{% if a != None %}
+							<textarea name="jawaban" cols="40" rows="5">{{ a.answer_text }}</textarea>
+							{% else %}
+							<textarea name="jawaban" cols="40" rows="5"></textarea>
+							{% endif %}
+							<li class='option'>
+							<input class='option-input' id='submit' type='submit' value="Submit"/>
+								<!-- <label class='option-label' style="background-color: #142414; color: white"  for='submit'>Submit</label> -->
+							</li>
+								{% else %}
+							{% for as in ans %}
+							<li class='option {{ as.text }}'>
+								<input class='option-input' id='{{ as.text }}'
+									name='jawaban' type='radio' value="{{ as.otp }}"									/>
+
+								<label class='option-label c{{ as.otp }}' for='{{ as.text }}'>{{as.text}}</label>
+							</li>
+							{% endfor %}
+							<li class='option'>
+								<input class='option-input' id='submit' type='submit' value="Submit"/>
+									<!-- <label class='option-label' style="background-color: #142414; color: white"  for='submit'>Submit</label> -->
+								</li>
+							<li class='option'>
+								<input class='option-input' name='jawaban' value="clear" id='jawaban' type='radio' onchange='this.form.submit();'/>
+								<label class='option-label' style="background-color: #142414; color: white" for='submit'>Clear Answer</label>
+							</li>
+							{% endif %}
+
+
+							<!-- <li class='option'>
+								<input class='option-input' id='option-2'
+									name='sublomba' type='radio' value="sapi" />
+								<label class='option-label' for='option-2'>Mantap
+									Jiwa</label>
+							</li>
+							<li class='option'>
+								<input class='option-input' id='option-3'
+									name='sublomba' type='radio' value="lumpia" />
+								<label class='option-label'
+									for='option-3'>lumpia</label>
+							</li>
+							<li class='option'>
+								<input class='option-input' id='option-{{key}}'
+									name='sublomba' type='radio' value="kodok" />
+								<label class='option-label' for='option-{{key}}'>Mantap
+									Jiwa</label>
+							</li> -->
+							<!-- <button>a</button>
+	<button>a</button>
+	<button>a</button>
+	<button>a</button> -->
+						</ul>
+					</div>
+					<div class="nomor-soal-mobile">
+						{{ pk }}
+					</div>
+				</div>
+			</div>
+			<div class="right-container">
+				<div class="child-right-container">
+					<div class="judul">
+						<img src="{% static "images/logo-fivetival-bg-transp.png" %}" alt="">
+						<div>
+							<div>English Quiz</div>
+							<div><strong>Fivetival 2022</strong></div>
+						</div>
+					</div>
+					<div class="multi-right-container">
+						<div class="waktu-container">
+							<div class="text-waktu">Sisa Waktu</div>
+							<div class="waktu"><span class="hours"></span><span class="minutes"></span><span class="seconds"></span></div>
+						</div>
+						<div class="list-soal">
+
+							<div class="text-soal">Nomor Soal</div>
+							<div class="kolom-list-soal">
+								<div class="baris-list-soal">
+									<!-- {% for q in jumsol|get_range %}
+									{% if q|get_modulo %}
+										</div>
+										<div class="baris-list-soal">
+									{% endif %}
+									<div class="kotak-list-soal nomer-{{q}}" onclick="location.href='/quiz/1/{{q|min_satu}}';" ><span>{{ q }}</span>
+									</div>
+									{% endfor %} -->
+
+									{% for key, values in bis.items %}
+									{% if key|get_modulo %}
+										</div>
+										<div class="baris-list-soal">
+									{% endif %}
+									<div class="kotak-list-soal nomer-{{key}} {{values}}" onclick="location.href='/quiz/1/{{key|min_satu}}';" ><span>{{ key }}</span>
+									</div>
+									{% endfor %}
+								</div>
+						</div>
+					</div>
+					<div class="cta-button">
+						{% if pk != 1 %}
+						<div class="button" onclick="location.href='/quiz/1/{{pk|min_dua}}';">Kembali</div>
+				{% endif %}
+						{% if pk == jumsol %}
+						<div class="button" onclick="location.href='/quiz/';">Selesai</div>
+						{% else %}
+						<div class="button" onclick="location.href='/quiz/1/{{pk}}';">Lanjut</div>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="navbar">
+			{% if pk != 1 %}
+			<a onclick="location.href='/quiz/1/{{pk|min_dua}}';">Kembali</a>
+			{% endif %}
+			<a id="myBtn">Soal</a>
+			{% if pk == jumsol %}
+			<a onclick="location.href='/quiz/';">Selesai</a>
+			{% else %}
+			<a onclick="location.href='/quiz/1/{{pk}}';">Lanjut</a>
+			{% endif %}
+		</div>
+		<div id="myModal" class="modal">
+
+			<!-- Modal content -->
+			<div class="modal-content">
+			  <p>Nomor Soal</p>
+			  <div class="kolom-list-soal">
+				<div class="baris-list-soal">
+					{% for key, values in bis.items %}
+					{% if key|get_modulo %}
+						</div>
+						<div class="baris-list-soal">
+					{% endif %}
+					<div class="kotak-list-soal nomer-{{key}} {{values}}" onclick="location.href='/quiz/1/{{key|min_satu}}';" ><span>{{ key }}</span>
+					</div>
+					{% endfor %}
+				</div>
+		</div>
+			</div>
+			</div>
+
+		  </div>
+
+	</form>
+</body>
+
+<script>
+	// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "flex";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+
+<style>
+	@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+	@media only screen and (max-width: 768px) {
+		.kotak-list-soal:hover {
+		background-color: #C8E2C8;
+		cursor: pointer;
+
+	}
+	.nomor-soal-mobile {
+		display: block !important;
+    text-align: center;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 38.1223px;
+}
+	.kotak-list-soal {
+		background-color: #95AD95;
+		border-radius: 9px;
+		text-align: center;
+		width: 70px !important;
+		height: 70px !important;
+		text-align: center;
+		display: table;
+
+	}
+
+	.kotak-list-soal>span {
+		font-family: 'Inter';
+		font-style: normal;
+		font-weight: 600;
+		font-size: 20px !important;
+		color: black;
+		display: table-cell;
+		vertical-align: middle;
+	}
+
+	.baris-list-soal {
+		gap: 2px;
+		display: flex;
+		flex-direction: row;
+	}
+
+	.kolom-list-soal {
+		gap: 2px;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.modal-content{
+		display: block !important;
+	}
+		.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  min-height: calc(100% - (.5rem * 2));
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.modal p{
+	text-align: center;
+}
+.modal-content {
+border-radius: 27px;
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+
+
+		.navbar {
+  /* overflow: hidden; */
+  /* background-color: #333; */
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar a {
+	background-color:#142414;
+  color: #f2f2f2;
+  text-align: center;
+  display: inline-block;
+  padding: 20px 35px;
+  text-decoration: none;
+  font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+  font-size: 20px;
+  margin: 0px auto;
+  border-radius: 20px 20px 0 0;
+  color: #C8E2C8;
+}
+
+.navbar a:hover {
+  background: #f1f1f1;
+  color: black;
+}
+		.waktu-mobile{
+			font-family: 'Inter';
+			font-weight: bold;
+			border-radius: 10px;
+			padding: 10px;
+			background-color: #142414;
+			color: #C8E2C8;
+			justify-content: center;
+			text-align: center;
+			display: flex !important;
+
+		}
+		.nomor-soal{
+			display: none;
+		}
+	.container {
+    display: flex;
+    flex-wrap: nowrap;
+    padding-top: 0% !important;
+    padding-bottom: 5%;
+}
+	/* For mobile phones: */
+	.left-container {
+
+    border-radius: 0 0 26px 26px !important;
+    margin-right: 10px;
+	margin-left: 10px;
+	margin-bottom: 60px;
+    background: #C8E2C8;
+    flex: 80%;
+}
+	.child-right-container {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		margin: 5% 0% 5% 5%;
+	}
+
+	.right-container {
+		display: none;
+	}
+
+	}
+
+	.waktu-mobile{
+			display: none;
+
+		}
+	.cta-button>.button:hover {
+		cursor: pointer;
+		background-color: #ECFFEC;
+	}
+
+	.cta-button>.button {
+		padding: 5% 12% 5% 12%;
+		background-color: #C8E2C8;
+		font-family: 'Inter';
+		font-style: normal;
+		font-weight: 600;
+		color: black;
+		font-size: 1.2vw;
+		border-radius: 9px;
+	}
+	input#submit {
+    width: 100%;
+    background-color: #142414;
+    color: white;
+    padding: 20px;
+    border-radius: 16px;
+    display: block;
+    font-family: 'Inter' !important;
+}
+	.cta-button {
+		display: flex;
+		gap: 15px;
+	}
+
+	.redflag {
+		box-shadow: inset 0px 0px 0px 5px #BD1D1D;
+	}
+
+	.kotak-list-soal:hover {
+		background-color: #C8E2C8;
+		cursor: pointer;
+
+	}
+
+	textarea {
+    max-height: 450px !important;
+    padding: 2%;
+    overflow: auto;
+    overflow-y: scroll !important;
+    border-radius: 16px;
+    background-color: white;
+}
+	.True {
+	background-color: #D7B16A !important;
+}
+	.modal-content{
+		display: none;
+	}
+	{% for q in jumsol|get_range %}
+	{% if q == pk %}
+									.nomer-{{q}} {
+										background-color: #365436 !important;
+									}
+
+									{% endif %}
+									{% endfor %}
+
+	.modal-content
+	.kotak-list-soal {
+		background-color: #C8E2C8;
+		border-radius: 9px;
+		text-align: center;
+		width: 3vw;
+		height: 3vw;
+		text-align: center;
+		display: table;
+
+	}
+	.navbar {
+		display: none;
+	}
+	.kotak-list-soal>span {
+		font-family: 'Inter';
+		font-style: normal;
+		font-weight: 600;
+		font-size: 1.2vw;
+		color: black;
+		display: table-cell;
+		vertical-align: middle;
+	}
+
+	.baris-list-soal {
+		gap: 10px;
+		display: flex;
+		justify-content: center;
+		flex-direction: row;
+	}
+
+	.kolom-list-soal {
+		gap: 10px;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.text-soal {
+		font-size: 1.5rem;
+		margin-bottom: 16px;
+	}
+	.kotak-list-soal {
+		background-color: #C8E2C8;
+    border-radius: 9px;
+    text-align: center;
+    width: 70px !important;
+    height: 70px !important;
+    text-align: center;
+    display: table;
+}
+
+	.list-soal {
+		background-color: #142414;
+		padding: 7% 7% 13%;
+		border-radius: 0 0 0 20px;
+		margin-bottom: 4%;
+	}
+
+	.waktu {
+		font-weight: 700;
+		font-size: 3.5vw;
+	}
+
+	.text-waktu {
+		margin-left: 5px;
+		font-size: 1.5rem;
+	}
+
+	.waktu-container {
+		border-radius: 20px 0 0 0;
+		display: flex;
+		flex-direction: column;
+		padding: 7% 7% 5%;
+		background-color: #1A311B;
+	}
+
+	.nomor-soal-mobile { display: none}
+
+	.judul {
+		margin-left: 10px;
+		display: flex;
+		align-items: center;
+	}
+
+	.judul>img {
+		width: 6vw;
+	}
+
+	.child-right-container {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		margin: 5% 0% 5% 5%;
+	}
+	.right-container {
+		color: white;
+		border-radius: 26px 0 0 26px;
+		background-color: #1F3F20;
+		flex: 20%;
+		margin-left: 10px;
+	}
+
+	.nomor-soal {
+		text-align: end;
+		font-style: normal;
+		font-weight: 600;
+		font-size: 48.1223px;
+	}
+
+	.options {
+		display: flex;
+		gap: 10px;
+		flex-direction: column;
+		padding-inline-start: 0px;
+
+	}
+
+
+	.jawaban>button:active {
+		background-color: #02ff02;
+	}
+
+	.jawaban>button:hover {
+		cursor: pointer;
+
+		background-color: #e0e0e0;
+	}
+
+	input[type=radio] {
+		display: none;
+	}
+	{% if a != None %}
+	{% if soal.tipe == 'PG' %}
+	.c{{ a.answer.otp }} {
+		background-color: #95AD95 !important;
+	}
+	{% else %}
+	{% for i in a.answer_akm.all %}
+	.c{{i.otp}}{
+		background-color: #95AD95 !important;
+	}
+	{% endfor %}
+	{% endif %}
+	{% endif %}
+	input[type=radio]+label {
+		padding: 20px;
+		border-radius: 16px;
+		display: block;
+		/* border-radius: 40px; */
+		/* border: 1px solid #ddd; */
+		background-color: white;
+
+	}
+
+	input[type=radio]+label:hover {
+		background-color: #EBFFE8;
+		cursor: pointer;
+
+	}
+
+	input[type=radio]:checked+label {
+		background-color: #95AD95;
+	}
+
+	.jawaban button {
+		text-align: center;
+		border-radius: 16px;
+		padding: 2%;
+		background-color: white;
+		list-style-type: none;
+	}
+
+	.option {
+		/* display: inline-block; */
+
+		text-align: center;
+		/* padding: 2%; */
+		/* background-color: white; */
+		list-style-type: none;
+	}
+
+	.soal {
+		max-height: 450px !important;
+		padding: 5%;
+		overflow: auto;
+		overflow-y: scroll !important;
+		border-radius: 16px;
+		background-color: white;
+	}
+
+	.child-left-container {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		margin: 2% 3% 3% 3%;
+	}
+
+	.left-container {
+
+		border-radius: 0 26px 26px 0;
+		margin-right: 10px;
+		background: #C8E2C8;
+		flex: 80%;
+	}
+
+	.container {
+		display: flex;
+		flex-wrap: nowrap;
+		padding-top: 5%;
+		padding-bottom: 5%;
+	}
+
+	body {
+		font-family: 'Inter';
+		margin: 0%;
+		background: #95AD95;
+	}
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
+	integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+const url = window.location.href
+const soal = document.getElementById("soal")
+let data
+
+
+$.ajax({
+	type: 'GET',
+	url: `${url}data`,
+	success: function(response){
+		// console.log(response)
+		data = response.data
+				console.log(data[0]);
+
+		// data.forEach(el => {
+		// 		console.log(data);
+
+			// for (const [question, answers] of Object.entries(el)){
+			// 	console.log(question);
+			// 	console.log(answers);
+			// 	soal.innerHTML = `
+			// 	${question}
+			// 	`
+			// }
+
+	},
+	error: function(error){
+		console.log(error)
+	}
+})
+</script>
+
+<script>
+	function makeTimer() {
+	   var endTime=new Date({{ obj.end_date|date:"U" }} * 1000);
+		endTime = (Date.parse(endTime) / 1000);
+
+			var now = new Date();
+			now = (Date.parse(now) / 1000);
+
+			var timeLeft = endTime - now;
+
+			var days = Math.floor(timeLeft / 86400);
+			var hours = Math.floor((timeLeft - (days * 86400)) / 3600);
+			var minutes = Math.floor((timeLeft - (days * 86400) - (hours * 3600 )) / 60);
+			var seconds = Math.floor((timeLeft - (days * 86400) - (hours * 3600) - (minutes * 60)));
+
+			if (hours < "10") { hours = "0" + hours; }
+			if (minutes < "10") { minutes = "0" + minutes; }
+			if (seconds < "10") { seconds = "0" + seconds; }
+
+			$(".hours").html(hours+ "<span>:</span>");
+			$(".minutes").html(minutes+ "<span>:</span>");
+			$(".seconds").html(seconds);
+
+	}
+
+	setInterval(function() { makeTimer(); }, 1000);
+	</script>
+</html>
