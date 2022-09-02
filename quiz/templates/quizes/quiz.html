@@ -31,7 +31,7 @@
    src="{{soal.song}}">
 </iframe><br>
 						{% endif %}
-						{{ soal.text }}
+						{{ soal.text|safe}}
 					</div>
 					<input type="text" id="qotp" name="qotp" value="{{soal.otp}}" readonly hidden>
 					<div class="jawaban">
