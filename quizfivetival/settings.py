@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insec/workspaces/fivetival/fivetival/staticure-b7@y@p+@mu%n
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 CSRF_TRUSTED_ORIGINS = [
-    "http://fivetival.herokuapp.com", 'https://fivetival2022.com', 'https://fivetival.com', 'http://127.0.0.1:8000', 'https://9119-182-253-194-16.ngrok.io/', 'https://auckyaisy-code50-52421145-x76rpv97fvq7w-8000.githubpreview.dev']
+    "http://quiz.fivetival.com", 'https://quiz.fivetival.com', 'https://fivetival.com', 'http://127.0.0.1:8000', 'https://9119-182-253-194-16.ngrok.io/', 'https://auckyaisy-code50-52421145-x76rpv97fvq7w-8000.githubpreview.dev']
 # ALLOWED_HOSTS = ["fivetival.herokuapp.com",
 #                  "127.0.0.1", "fivetival2022.com", 'fivetival.com', 'localhost']
 ALLOWED_HOSTS = ["*"]
