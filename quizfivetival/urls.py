@@ -14,8 +14,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.views.decorators.csrf import csrf_exempt
+
+# default: "Django Administration"
+admin.site.site_header = 'Fivetival Admin'
+# default: "Site administration"
+admin.site.index_title = 'bisa lihat sm ubah data link juknis'
+# default: "Django site admin"
+admin.site.site_title = 'Fivetival Admin'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include("quiz.urls"))
 ]

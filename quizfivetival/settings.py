@@ -78,7 +78,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-LOGIN_URL = '/quiz/login'
+LOGIN_URL = '/login'
 
 LOGGING = {
     'version': 1,

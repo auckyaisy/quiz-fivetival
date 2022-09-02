@@ -14,7 +14,7 @@ class Team(models.Model):
 		return f"{self.name}"
 
 class User(AbstractUser):
-	role = models.IntegerField()
+	role = models.IntegerField(default=1)
 	team = models.ForeignKey(Team, on_delete=models.CASCADE, null=True, blank=True)
 	# def save(self,*args,**kwargs):
 	# 	created = not self.pk
