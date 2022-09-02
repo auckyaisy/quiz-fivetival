@@ -55,6 +55,16 @@
 							<input class='option-input' id='submit' type='submit' value="Submit"/>
 								<!-- <label class='option-label' style="background-color: #142414; color: white"  for='submit'>Submit</label> -->
 							</li>
+							{% elif soal.tipe == 'SB' %}
+							{% if a != None %}
+							<textarea name="jawaban" cols="40" rows="5">{{ a.answer_text }}</textarea>
+							{% else %}
+							<textarea name="jawaban" cols="40" rows="5"></textarea>
+							{% endif %}
+							<li class='option'>
+								<input class='option-input' id='submit' type='submit' value="Submit" />
+								<!-- <label class='option-label' style="background-color: #142414; color: white"  for='submit'>Submit</label> -->
+							</li>
 								{% else %}
 							{% for as in ans %}
 							<li class='option {{ as.text }}'>
@@ -137,7 +147,7 @@
 										</div>
 										<div class="baris-list-soal">
 									{% endif %}
-									<div class="kotak-list-soal nomer-{{key}} {{values}}" onclick="location.href='/1/{{key|min_satu}}';" ><span>{{ key }}</span>
+									<div class="kotak-list-soal nomer-{{key}} {{values}}" onclick="location.href='/quiz/1/{{key|min_satu}}';" ><span>{{ key }}</span>
 									</div>
 									{% endfor %}
 								</div>
@@ -145,12 +155,12 @@
 					</div>
 					<div class="cta-button">
 						{% if pk != 1 %}
-						<div class="button" onclick="location.href='/1/{{pk|min_dua}}';">Kembali</div>
+						<div class="button" onclick="location.href='/quiz/1/{{pk|min_dua}}';">Kembali</div>
 				{% endif %}
 						{% if pk == jumsol %}
-						<div class="button" onclick="location.href='/';">Selesai</div>
+						<div class="button" onclick="myFunction()">Selesai</div>
 						{% else %}
-						<div class="button" onclick="location.href='/1/{{pk}}';">Lanjut</div>
+						<div class="button" onclick="location.href='/quiz/1/{{pk}}';">Lanjut</div>
 						{% endif %}
 					</div>
 				</div>
@@ -158,13 +168,13 @@
 		</div>
 		<div class="navbar">
 			{% if pk != 1 %}
-			<a onclick="location.href='/1/{{pk|min_dua}}';">Kembali</a>
+			<a onclick="location.href='/quiz/1/{{pk|min_dua}}';">Kembali</a>
 			{% endif %}
 			<a id="myBtn">Soal</a>
 			{% if pk == jumsol %}
-			<a onclick="location.href='/';">Selesai</a>
+			<a onclick="myFunction()">Selesai</a>
 			{% else %}
-			<a onclick="location.href='/1/{{pk}}';">Lanjut</a>
+			<a onclick="location.href='/quiz/1/{{pk}}';">Lanjut</a>
 			{% endif %}
 		</div>
 		<div id="myModal" class="modal">
@@ -179,7 +189,7 @@
 						</div>
 						<div class="baris-list-soal">
 					{% endif %}
-					<div class="kotak-list-soal nomer-{{key}} {{values}}" onclick="location.href='/1/{{key|min_satu}}';" ><span>{{ key }}</span>
+					<div class="kotak-list-soal nomer-{{key}} {{values}}" onclick="location.href='quiz/1/{{key|min_satu}}';" ><span>{{ key }}</span>
 					</div>
 					{% endfor %}
 				</div>
@@ -210,6 +220,12 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
+
+	function myFunction() {
+		if (confirm("Apakah anda sudah yakin, untuk menyelesaikan sesi ini?") == true) {
+			location.href = '/selesai/{{pksoal}}';
+		}
+	}
 </script>
 
 <style>

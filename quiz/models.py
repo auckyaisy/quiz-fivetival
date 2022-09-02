@@ -9,6 +9,12 @@ def MakeOTP():
 
 # Create your models here.
 class Team(models.Model):
+	lolos = models.BooleanField(default=False)
+	jenis_lomba = [
+            ('SB', 'SPELLING BEE'),
+            ('EQ', 'ENGLISH QUIZ'),
+        ]
+	lomba = models.CharField(max_length=2, choices=jenis_lomba)
 	name = models.CharField(max_length=120)
 	def __str__(self):
 		return f"{self.name}"
@@ -26,12 +32,13 @@ class User(AbstractUser):
 class Quiz(models.Model):
 	start_date = models.DateTimeField(auto_now_add=False, blank=True, null=True)
 	end_date = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+	time = models.IntegerField(blank=True, null=True)
 	name = models.CharField(max_length=120)
 	topic = models.CharField(max_length=120)
 	number_of_questions = models.IntegerField()
 
 	def __str__(self):
-		return f"{self.name}-{self.topic}"
+		return f"{self.name}"
 
 	def get_questions(self):
 		return self.question_set.all()[:self.number_of_questions]
@@ -39,6 +46,13 @@ class Quiz(models.Model):
 class Question(models.Model):
 	otp = models.CharField(max_length=7, default=MakeOTP)
 	text = models.TextField()
+	level_soal = [
+            ('EASY', 'EASY'),
+            ('MEDI', 'MEDIUM'),
+            ('HARD', 'HARD'),
+            ('SEMI', 'SEMIFINAL'),
+        ]
+	level = models.CharField(max_length=4, choices=level_soal)
 	quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
 	created = models.DateTimeField(auto_now_add=True)
 	song = models.TextField(blank=True, null=True)
@@ -46,7 +60,7 @@ class Question(models.Model):
     ('PG', 'Multiple Choice/ Sejenis'),
     ('ES', 'Esai'),
     ('AKM', 'AKM'),
-	('PS', 'Pilihan Singkat')
+	('SB', 'Spelling Bee')
 	]
 	tipe = models.CharField(
         max_length=3,
@@ -74,6 +88,7 @@ class AnswerAnggota(models.Model):
 	user = models.ForeignKey(Team, on_delete=models.CASCADE, blank=True, null=True)
 	answer_akm = models.ManyToManyField(Answer, related_name='re_answer_akm', blank=True, null=True)
 	answer_text = models.TextField(blank=True, null=True)
+	score = models.IntegerField(default=0)
 
 	def __str__(self):
 		return f"{self.question.text}, {self.user}"
@@ -86,4 +101,4 @@ class Result(models.Model):
 	finish_date = models.DateTimeField(auto_now_add=False, blank=True, null=True)
 
 	def __str__(self):
-		return str(self.pk)
+		return f"{self.team} | {self.score} | {self.quiz}"

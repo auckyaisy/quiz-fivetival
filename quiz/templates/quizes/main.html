@@ -6,16 +6,16 @@
 	<span class="judul">Selamat datang, {{u.first_name}} - {{u.team}}</span>
 <section data-bs-version="5.1" class="pricing2 cid-sFF7wKlLkT" id="pricing2-c">
 
-
-{% for obj in object_list %}
+{% for key, value in k.items %}
+{% if key.topic == "sb" and u.team.lomba == "SB" %}
 	<div class="container">
 		<div class="row justify-content-center">
-			<a data-bs-toggle="modal" data-bs-target="#exampleModal">
+			<a data-bs-toggle="modal" data-bs-target="#{{key.topic}}">
 
 				<div class="col-12 col-md-6 align-center col-lg-4">
 					<div class="plan">
 						<div class="plan-header">
-							<h6 class="plan-title mbr-fonts-style mb-3 display-5"><strong>Babak Penyisihan</strong></h6>
+							<h6 class="plan-title mbr-fonts-style mb-3 display-5"><strong>{{key.name}}</strong></h6>
 						</div>
 					</div>
 				</div>
@@ -24,32 +24,151 @@
 	</div>
 </section>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="{{key.topic}}" tabindex="-1" aria-labelledby="{{key.topic}}label" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">English Quiz</h5>
+				<h5 class="modal-title" id="{{key.topic}}label">{{key.name}}</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal"
 					aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				Banyak pertanyaan: {{obj.number_of_questions}}<br>
-				Waktu: {{obj.time}} Menit
+				Banyak pertanyaan: {{key.number_of_questions}}<br>
+				Waktu: {{key.start_date}} - {{key.end_date}} 
 				<br><br>
+			{% if value == False %}
 				<strong>Apakah anda yakin ingin memulai quiz?</strong>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-				<button type="button" class="btn btn-primary" onclick="window.location.href='/{{obj.pk}}/0';">Ya, mulai</button>
+				<button type="button" class="btn btn-primary" onclick="window.location.href='quiz/{{key.pk}}/0';">Ya, mulai</button>
 			</div>
+
+			{% else %}
+			<div class="modal-footer">
+				<strong>Anda telah menyelesaikan Quiz</strong>
+			</div>
+			{% endif %}
+		</div> 
+	</div>
+</div>
+</div>
+{% endif %}
+{% if key.topic == "semi" and u.team.lomba == "EQ" and u.team.lolos == True %}
+<div class="container">
+	<div class="row justify-content-center">
+		<a data-bs-toggle="modal" data-bs-target="#{{key.topic}}">
+
+			<div class="col-12 col-md-6 align-center col-lg-4">
+				<div class="plan">
+					<div class="plan-header">
+						<h6 class="plan-title mbr-fonts-style mb-3 display-5">
+							<strong>{{key.name}}</strong>
+						</h6>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+</div>
+</section>
+
+<div class="modal fade" id="{{key.topic}}" tabindex="-1" aria-labelledby="{{key.topic}}label" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="{{key.topic}}label">{{key.name}}</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				Banyak pertanyaan: {{key.number_of_questions}}<br>
+				Waktu: {{key.start_date}} - {{key.end_date}}
+				<br><br>
+				{% if value == False %}
+				<strong>Apakah anda yakin ingin memulai quiz?</strong>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+				<button type="button" class="btn btn-primary"
+					onclick="window.location.href='quiz/{{key.pk}}/0';">Ya, mulai</button>
+			</div>
+
+			{% else %}
+			<div class="modal-footer">
+				<strong>Anda telah menyelesaikan Quiz</strong>
+			</div>
+			{% endif %}
 		</div>
 	</div>
 </div>
-{% endfor %}
 </div>
+{% endif %}
+{% if key.topic == "eq" and u.team.lomba == "EQ" %}
+<div class="container">
+	<div class="row justify-content-center">
+		<a data-bs-toggle="modal" data-bs-target="#{{key.topic}}">
+
+			<div class="col-12 col-md-6 align-center col-lg-4">
+				<div class="plan">
+					<div class="plan-header">
+						<h6 class="plan-title mbr-fonts-style mb-3 display-5">
+							<strong>{{key.name}}</strong></h6>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+</div>
+</section>
+
+<div class="modal fade" id="{{key.topic}}" tabindex="-1" aria-labelledby="{{key.topic}}label" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="{{key.topic}}label">{{key.name}}</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				Banyak pertanyaan: {{key.number_of_questions}}<br>
+				Waktu: {{key.start_date}} - {{key.end_date}}
+				<br><br>
+				{% if value == False %}
+				<strong>Apakah anda yakin ingin memulai quiz?</strong>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+				<button type="button" class="btn btn-primary"
+					onclick="window.location.href='quiz/{{key.pk}}/0';">Ya, mulai</button>
+			</div>
+
+			{% else %}
+			<div class="modal-footer">
+				<strong>Anda telah menyelesaikan Quiz</strong>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+</div>
+</div>
+{% endif %}
+{% endfor %}
 
 
 <style>
+	.plan{
+		
+    transition: all 0.2s ease-in-out;
+    border-radius: 20px;
+    color: white;
+    word-break: break-word;
+    background-color: #82806c;
+    padding-bottom: 1rem;
+    padding-top: 4rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+	}
 	.container{
 
 	}
@@ -92,12 +211,7 @@ section, .container, .container-fluid {
     .cid-sFF75ZhH2d .mbr-section-title {
     color: #a3a284;
 }
-    .cid-sFF7wKlLkT .plan-header {
-    padding-bottom: 1rem;
-    padding-top: 4rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-}
+
 h6.plan-title.mbr-fonts-style.mb-3.display-5 {
     padding-bottom: 2rem;
     text-align: center;
