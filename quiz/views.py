@@ -272,12 +272,11 @@ def selesai(request, pk):
 				ans = AnswerAnggota.objects.get(question=q[i], user=u.team)
 				score += ans.score
 			except:
-				for k in q:
-					if not k.tipe_soal == 'SB':
-						if k.level == "EASY":
-							score -= 1
-						elif k.level == "SEMI":
-							score -= 2
+				if quiz.topic != "sb":
+					if q[i].level == "EASY":
+						score -= 1
+					elif q[i].level == "SEMI":
+						score -= 2
 		r.score = score
 		r.selesai = True
 		r.finish_date = timezone.now()
