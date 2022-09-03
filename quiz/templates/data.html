@@ -1,10 +1,12 @@
 <table style="width:100%">
 <tr>
+	<th>Lomba</th>
 	<th>Tim</th>
 	<th>Skor</th>
 </tr>
 {% for i in forms %}
 <tr>
+	<td>{{ i.quiz.name }}</td>
 	<td>{{i.team}}</td>
 	<td>{{i.score}}</td>
 </tr>
