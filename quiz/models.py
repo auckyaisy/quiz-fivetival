@@ -55,7 +55,6 @@ class Sesi(models.Model):
 		return f"{self.team} | {self.quiz}: {self.start_date} - {self.end_date}"
 
 class Question(models.Model):
-	id = models.IntegerField(primary_key=True)
 	otp = models.CharField(max_length=7, default=MakeOTP)
 	text = models.TextField()
 	level_soal = [
