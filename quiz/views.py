@@ -303,7 +303,7 @@ def logout_view(request):
 
 def check_jawab(qis, u, quest):
 	try:
-		AnswerAnggota.objects.get(question=questions, user=u)
+		AnswerAnggota.objects.get(question=quest, user=u)
 		return True
 	except:
 		return False
