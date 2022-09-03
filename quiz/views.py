@@ -277,6 +277,7 @@ def selesai(request, pk):
 						score -= 1
 					elif q[i].level == "SEMI":
 						score -= 2
+				pass
 		r.score = score
 		r.selesai = True
 		r.finish_date = timezone.now()
