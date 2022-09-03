@@ -147,7 +147,7 @@
 										</div>
 										<div class="baris-list-soal">
 									{% endif %}
-									<div class="kotak-list-soal nomer-{{key}} {{values}}" onclick="location.href='/quiz/1/{{key|min_satu}}';" ><span>{{ key }}</span>
+									<div class="kotak-list-soal nomer-{{key}} {{values}}" onclick="location.href='/quiz/{{pksoal}}/{{key|min_satu}}';" ><span>{{ key }}</span>
 									</div>
 									{% endfor %}
 								</div>
@@ -155,12 +155,12 @@
 					</div>
 					<div class="cta-button">
 						{% if pk != 1 %}
-						<div class="button" onclick="location.href='/quiz/1/{{pk|min_dua}}';">Kembali</div>
+						<div class="button" onclick="location.href='/quiz/{{pksoal}}/{{pk|min_dua}}';">Kembali</div>
 				{% endif %}
 						{% if pk == jumsol %}
 						<div class="button" onclick="myFunction()">Selesai</div>
 						{% else %}
-						<div class="button" onclick="location.href='/quiz/1/{{pk}}';">Lanjut</div>
+						<div class="button" onclick="location.href='/quiz/{{pksoal}}/{{pk}}';">Lanjut</div>
 						{% endif %}
 					</div>
 				</div>
@@ -168,13 +168,13 @@
 		</div>
 		<div class="navbar">
 			{% if pk != 1 %}
-			<a onclick="location.href='/quiz/1/{{pk|min_dua}}';">Kembali</a>
+			<a onclick="location.href='/quiz/{{pksoal}}/{{pk|min_dua}}';">Kembali</a>
 			{% endif %}
 			<a id="myBtn">Soal</a>
 			{% if pk == jumsol %}
 			<a onclick="myFunction()">Selesai</a>
 			{% else %}
-			<a onclick="location.href='/quiz/1/{{pk}}';">Lanjut</a>
+			<a onclick="location.href='/quiz/{{pksoal}}/{{pk}}';">Lanjut</a>
 			{% endif %}
 		</div>
 		<div id="myModal" class="modal">
@@ -189,7 +189,7 @@
 						</div>
 						<div class="baris-list-soal">
 					{% endif %}
-					<div class="kotak-list-soal nomer-{{key}} {{values}}" onclick="location.href='/quiz/1/{{key|min_satu}}';" ><span>{{ key }}</span>
+					<div class="kotak-list-soal nomer-{{key}} {{values}}" onclick="location.href='/quiz/{{pksoal}}/{{key|min_satu}}';" ><span>{{ key }}</span>
 					</div>
 					{% endfor %}
 				</div>
