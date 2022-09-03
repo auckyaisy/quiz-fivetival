@@ -239,7 +239,7 @@ def quiz_view(request, pk, soal):
 				bis = {}
 				for qis in range(1, len(q)+1):
 					# bis[f"{qis}"].append(AnswerAnggota.objects.get(question=Question.objects.get(pk=qis),user=u))
-					bis[f"{qis}"] = check_jawab(qis, u.team, questions)
+					bis[f"{qis}"] = check_jawab(qis, u.team, q[qis-1])
 				# except:(
 				# 	b = None
 				ans = questions.get_answer()
