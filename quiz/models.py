@@ -50,11 +50,12 @@ class Sesi(models.Model):
 	team = models.ForeignKey(
 	    Team, on_delete=models.CASCADE, blank=True, null=True)
 	time = models.IntegerField(blank=True, null=True)
-	
+
 	def __str__(self):
 		return f"{self.team} | {self.quiz}: {self.start_date} - {self.end_date}"
 
 class Question(models.Model):
+	id = models.IntegerField(primary_key=True)
 	otp = models.CharField(max_length=7, default=MakeOTP)
 	text = models.TextField()
 	level_soal = [
