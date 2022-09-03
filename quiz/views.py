@@ -239,7 +239,7 @@ def quiz_view(request, pk, soal):
 				bis = {}
 				for qis in range(1, len(q)+1):
 					# bis[f"{qis}"].append(AnswerAnggota.objects.get(question=Question.objects.get(pk=qis),user=u))
-					bis[f"{qis}"] = check_jawab(qis, u.team)
+					bis[f"{qis}"] = check_jawab(qis, u.team, questions)
 				# except:(
 				# 	b = None
 				ans = questions.get_answer()
@@ -301,9 +301,9 @@ def logout_view(request):
         "message": "Keluar"
     })
 
-def check_jawab(qis, u):
+def check_jawab(qis, u, quest):
 	try:
-		AnswerAnggota.objects.get(question=Question.objects.get(pk=qis),user=u)
+		AnswerAnggota.objects.get(question=questions, user=u)
 		return True
 	except:
 		return False
