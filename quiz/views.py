@@ -183,6 +183,10 @@ def quiz_view(request, pk, soal):
 							a = AnswerAnggota.objects.get(question=questions, user=u.team)
 							a.question = Question.objects.get(otp=request.POST["qotp"])
 							a.answer_akm.add(Answer.objects.get(otp=request.POST["jawaban"]))
+							if Answer.objects.get(otp=request.POST["jawaban"]) == True:
+								a.score += 2
+							else:
+								a.score -= 3
 							a.save()
 
 						except:
@@ -191,6 +195,10 @@ def quiz_view(request, pk, soal):
 							Post.question = Question.objects.get(otp=request.POST["qotp"])
 							Post.save()
 							Post.answer_akm.add(Answer.objects.get(otp=request.POST["jawaban"]))
+							if Answer.objects.get(otp=request.POST["jawaban"]) == True:
+								Post.score += 2
+							else:
+								Post.score -= 3
 							Post.save()
 				elif questions.tipe == 'SB':
 					try:
