@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from multiprocessing.heap import reduce_arena
 from django.shortcuts import render
 from .models import Quiz, Question, AnswerAnggota, User, Answer, Result, Sesi
@@ -256,20 +257,24 @@ def quiz_view(request, pk, soal):
 
 from django.template.defaulttags import register
 
-
-import csv
-from django.http import HttpResponse
-def export_to_csv(request):
+def export(request):
 	forms = Result.objects.all()
-	response = HttpResponse('text/csv')
-	response['Content-Disposition'] = 'attachment; filename=form_export.csv'
-	writer = csv.writer(response)
-	writer.writerow(['Team', 'score', 'Waktu Submit'])
-	form_fields = forms.values_list('team', 'score', 'finish_date')
-	for form in form_fields:
-		# print(form)
-		writer.writerow(form)
-	return response
+	return render(request, 'data.html', {'forms': forms})
+
+
+# import csv
+# def export_to_csv(request):
+# 	forms = Result.objects.all()
+# 	response = HttpResponse('text/csv')
+# 	response['Content-Disposition'] = 'attachment; filename=form_export.csv'
+# 	writer = csv.writer(response)
+# 	writer.writerow(['quiz', 'Team',  'score', 'Waktu Submit'])
+# 	form_fields = forms.values_list(
+# 		'quiz', 'team', 'score', 'finish_date')
+# 	for form in form_fields:
+# 		# print(form)
+# 		writer.writerow(form)
+# 	return response
 
 def selesai(request, pk):
 	u = User.objects.get(username=f"{request.user.username}")
