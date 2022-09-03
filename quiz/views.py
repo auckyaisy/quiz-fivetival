@@ -226,7 +226,7 @@ def quiz_view(request, pk, soal):
 			#         Post.pilihan = 5
 			#         Post.checklist = True
 		#         return redirect("/sesudah")
-
+				
 
 
 				return HttpResponseRedirect(request.path_info)
@@ -255,6 +255,20 @@ def quiz_view(request, pk, soal):
 		return HttpResponseRedirect(reverse("index"))
 
 from django.template.defaulttags import register
+
+
+import csv
+def export_to_csv(request):
+	forms = Result.objects.all()
+	response = HttpResponse('text/csv')
+	response['Content-Disposition'] = 'attachment; filename=form_export.csv'
+	writer = csv.writer(response)
+	writer.writerow(['Team', 'score', 'Waktu Submit'])
+	form_fields = forms.values_list('team', 'score', 'finish_date')
+	for form in form_fields:
+		# print(form)
+		writer.writerow(form)
+	return response
 
 def selesai(request, pk):
 	u = User.objects.get(username=f"{request.user.username}")
